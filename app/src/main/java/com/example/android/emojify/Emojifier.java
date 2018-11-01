@@ -29,6 +29,9 @@ import com.google.android.gms.vision.face.FaceDetector;
 class Emojifier {
 
     private static final String LOG_TAG = Emojifier.class.getSimpleName();
+    private static final float SMILING_THRESHOLD = 0.7f;
+    private static final float LEFT_EYE_OPEN_THRESHOLD = 0.7f;
+    private static final float RIGHT_EYE_OPEN_THRESHOLD = 0.7f;
 
     /**
      * Method for detecting faces in a bitmap.
@@ -62,11 +65,10 @@ class Emojifier {
 
                 // Log the classification probabilities for each face.
                 whichEmoji(face);
-                // TODO (6): Change the call to whichEmoji to whichEmoji() to log the appropriate emoji for the facial expression.
+                // DONE (6): Change the call to getClassification() to whichEmoji() to log the appropriate emoji for the facial expression.
             }
 
         }
-
 
         // Release the detector
         detector.release();
@@ -87,9 +89,24 @@ class Emojifier {
         Log.d(LOG_TAG, "whichEmoji: rightEyeOpenProb = "
                 + face.getIsRightEyeOpenProbability());
 
-        // TODO (3): Create threshold constants for a person smiling, and and eye being open by taking pictures of yourself and your friends and noting the logs.
-        // TODO (4): Create 3 boolean variables to track the state of the facial expression based on the thresholds you set in the previous step: smiling, left eye closed, right eye closed.
-        // TODO (5): Create an if/else system that selects the appropriate emoji based on the above booleans and log the result.
+        // DONE (3): Create threshold constants for a person smiling, and and eye being open by taking pictures of yourself and your friends and noting the logs.
+
+        // DONE (4): Create 3 boolean variables to track the state of the facial expression based on the thresholds you set in the previous step: smiling, left eye closed, right eye closed.
+        boolean isSmiling = face.getIsSmilingProbability() > SMILING_THRESHOLD;
+        boolean leftEyeOpen = face.getIsLeftEyeOpenProbability() > LEFT_EYE_OPEN_THRESHOLD;
+        boolean rightEyeOpen = face.getIsRightEyeOpenProbability() > RIGHT_EYE_OPEN_THRESHOLD;
+
+
+        // DONE (5): Create an if/else system that selects the appropriate emoji based on the above booleans and log the result.
+
+        int facialResult = 0;
+
+        facialResult |= isSmiling ? 1 : 0;
+        facialResult |= ( rightEyeOpen ? 1 : 0 ) << 1;
+        facialResult |= ( leftEyeOpen ? 1 : 0 ) << 2;
+
+        Emoji emojiMatch = Emoji.get(facialResult);
+        Log.d(LOG_TAG, "Matchin emoji: " + emojiMatch.name());
     }
 
 

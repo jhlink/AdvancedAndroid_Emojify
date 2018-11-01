@@ -1,12 +1,37 @@
 package com.example.android.emojify;
 
+import android.util.SparseArray;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Emoji {
-    smiling,
-    frowning,
-    left_wink,
-    right_wink,
-    left_wink_frowning,
-    right_wink_frowning,
-    closed_eye_smiling,
-    closed_eye_frowning
+    //  Use bitwise operations for state.
+    //  Little-Endian
+    //  0 - 0 - 0
+    //  leftEye - rightEye - smiling
+
+    smiling(7),
+    frowning(6),
+    right_wink(5),
+    right_wink_frowning(4),
+    left_wink(3),
+    left_wink_frowning(2),
+    closed_eye_smiling(1),
+    closed_eye_frowning(0);
+
+    private int emojiIndex;
+    private static final SparseArray<Emoji> lookup = new SparseArray<Emoji>();
+
+    public int getEmojiBitstate() {
+        return this.emojiIndex;
+    }
+
+    public static Emoji get(int facialState) {
+        return lookup.get(facialState);
+    }
+
+    private Emoji(int i) {
+        this.emojiIndex = i;
+    }
 }
