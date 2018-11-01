@@ -35,7 +35,7 @@ class Emojifier {
 
     private static final double SMILING_PROB_THRESHOLD = .15;
     private static final double EYE_OPEN_PROB_THRESHOLD = .5;
-    private static final double EMOJI_SCALE_FACTOR = 1.0;
+    private static final float EMOJI_SCALE_FACTOR = 1.0f;
 
     /**
      * Method for detecting faces in a bitmap.
@@ -62,7 +62,9 @@ class Emojifier {
         // Log the number of faces
         Log.d(LOG_TAG, "detectFacesAndOverlayEmoji: number of faces = " + faces.size());
 
-        // TODO (7): Create a variable called resultBitmap and initialize it to the original picture bitmap passed into the detectFacesAndOverlayEmoji() method
+        // DONE (7): Create a variable called resultBitmap and initialize it to the original picture bitmap passed into the detectFacesAndOverlayEmoji() method
+        Bitmap resultBitmap = picture;
+
         // If there are no faces detected, show a Toast message
         if(faces.size() == 0) {
             Toast.makeText(context, R.string.no_faces_message, Toast.LENGTH_SHORT).show();
@@ -72,7 +74,7 @@ class Emojifier {
             for (int i = 0; i < faces.size(); ++i) {
                 Face face = faces.valueAt(i);
                 // DONE (4): Create a variable called emojiBitmap to hold the appropriate Emoji bitmap and remove the call to whichEmoji()
-                Bitmap emojiBitmap;
+                Bitmap emojiBitmap = null;
 
                 // DONE (5): Create a switch statement on the result of the whichEmoji() call, and assign the proper emoji bitmap to the variable you created
                 switch ( whichEmoji(face) ) {
@@ -112,7 +114,8 @@ class Emojifier {
                         break;
                 }
 
-                // TODO (8): Call addBitmapToFace(), passing in the resultBitmap, the emojiBitmap and the Face  object, and assigning the result to resultBitmap
+                // DONE (8): Call addBitmapToFace(), passing in the resultBitmap, the emojiBitmap and the Face  object, and assigning the result to resultBitmap
+                resultBitmap = addBitmapToFace(resultBitmap, emojiBitmap, face);
 
             }
         }
@@ -120,7 +123,8 @@ class Emojifier {
 
         // Release the detector
         detector.release();
-        // TODO (9): Return the resultBitmap
+        // DONE (9): Return the resultBitmap
+        return resultBitmap;
     }
 
 
