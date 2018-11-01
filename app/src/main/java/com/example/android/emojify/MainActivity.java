@@ -53,22 +53,22 @@ public class MainActivity extends AppCompatActivity {
 
     // DONE (2): Replace all View declarations with Butterknife annotations
     @BindView(R.id.image_view)
-    private ImageView mImageView;
+    ImageView mImageView;
 
     @BindView(R.id.emojify_button)
-    private Button mEmojifyButton;;
+    Button mEmojifyButton;;
 
     @BindView(R.id.share_button)
-    private FloatingActionButton mShareFab;
+    FloatingActionButton mShareFab;
 
     @BindView(R.id.save_button)
-    private FloatingActionButton mSaveFab;
+    FloatingActionButton mSaveFab;
 
     @BindView(R.id.clear_button)
-    private FloatingActionButton mClearFab;
+    FloatingActionButton mClearFab;
 
     @BindView(R.id.title_text_view)
-    private TextView mTitleTextView;
+    TextView mTitleTextView;
 
     private String mTempPhotoPath;
     private Bitmap mResultsBitmap;
