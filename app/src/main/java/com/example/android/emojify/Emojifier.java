@@ -79,7 +79,7 @@ class Emojifier {
      * @param face The face to get the classification probabilities.
      */
     private static void whichEmoji(Face face){
-        // DONE (2): Change the name of the whichEmoji() method to whichEmoji() (also change the log statements)
+        // DONE (2): Change the name of the getClassification() method to whichEmoji() (also change the log statements)
         // Log all the probabilities
         Log.d(LOG_TAG, "whichEmoji: smilingProb = " + face.getIsSmilingProbability());
         Log.d(LOG_TAG, "whichEmoji: leftEyeOpenProb = "
