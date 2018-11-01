@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
         // DONE (3): Call the new detectFaces() method, passing in the resampled bitmap to detect the faces in the picture.
         Context context = getApplicationContext();
-        int numberOfFaces = Emojifier.detectFaces(context, mResultsBitmap);
+        Emojifier.detectFaces(context, mResultsBitmap);
 
         // Set the new bitmap to the ImageView
         mImageView.setImageBitmap(mResultsBitmap);

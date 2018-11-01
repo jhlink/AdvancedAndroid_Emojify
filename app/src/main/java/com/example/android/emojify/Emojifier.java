@@ -14,7 +14,7 @@ public class Emojifier {
 
     private final static String TAG = Emojifier.class.getSimpleName();
 
-    public static int detectFaces(Context context, Bitmap bitmap) {
+    public static void detectFaces(Context context, Bitmap bitmap) {
         FaceDetector detector = new FaceDetector.Builder(context)
                 .setTrackingEnabled(false)
                 .setLandmarkType(FaceDetector.ALL_CLASSIFICATIONS)
@@ -27,9 +27,9 @@ public class Emojifier {
         Log.d(TAG, "Number of faces in bitmap: " + faces.size());
 
         if ( faces.size() == 0 ) {
-            Toast.makeText(context, "No faces detected in bitmap.", Toast.LENGTH_SHORT);
+            Toast.makeText(context, "No faces detected in bitmap.", Toast.LENGTH_SHORT).show();
         }
 
-        return faces.size();
+        detector.release();
     }
 }
