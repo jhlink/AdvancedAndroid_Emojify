@@ -56,9 +56,13 @@ class Emojifier {
         // If there are no faces detected, show a Toast message
         if(faces.size() == 0){
             Toast.makeText(context, R.string.no_faces_message, Toast.LENGTH_SHORT).show();
-        }
+        } else {
+            // DONE (2): Iterate through the faces, calling getClassifications() for each face.
 
-        // TODO (2): Iterate through the faces, calling getClassifications() for each face.
+            for ( int i = 0; i < faces.size(); i++ ) {
+                getClassifications(faces.get(i));
+            }
+        }
 
         // Release the detector
         detector.release();
