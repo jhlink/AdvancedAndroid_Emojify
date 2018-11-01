@@ -31,6 +31,12 @@ public enum Emoji {
         return lookup.get(facialState);
     }
 
+    static {
+        for ( Emoji e : Emoji.values()) {
+            lookup.put(e.emojiIndex, e);
+        }
+    }
+
     private Emoji(int i) {
         this.emojiIndex = i;
     }
