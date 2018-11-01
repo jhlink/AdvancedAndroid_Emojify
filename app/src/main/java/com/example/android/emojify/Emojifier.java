@@ -19,6 +19,7 @@ package com.example.android.emojify;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.util.SparseArray;
@@ -34,6 +35,7 @@ class Emojifier {
 
     private static final double SMILING_PROB_THRESHOLD = .15;
     private static final double EYE_OPEN_PROB_THRESHOLD = .5;
+    private static final double EMOJI_SCALE_FACTOR = 1.0;
 
     /**
      * Method for detecting faces in a bitmap.
@@ -179,7 +181,47 @@ class Emojifier {
 
     }
 
-    // TODO (6) Create a method called addBitmapToFace() which takes the background bitmap, the Emoji bitmap, and a Face object as arguments and returns the combined bitmap with the Emoji over the face.
+    // DONE (6) Create a method called addBitmapToFace() which takes the background bitmap, the Emoji bitmap, and a Face object as arguments and returns the combined bitmap with the Emoji over the face.
+    /**
+     * Combines the original picture with the emoji bitmaps
+     *
+     * @param backgroundBitmap The original picture
+     * @param emojiBitmap      The chosen emoji
+     * @param face             The detected face
+     * @return The final bitmap, including the emojis over the faces
+     */
+    private static Bitmap addBitmapToFace(Bitmap backgroundBitmap, Bitmap emojiBitmap, Face face) {
+
+        // Initialize the results bitmap to be a mutable copy of the original image
+        Bitmap resultBitmap = Bitmap.createBitmap(backgroundBitmap.getWidth(),
+                backgroundBitmap.getHeight(), backgroundBitmap.getConfig());
+
+        // Scale the emoji so it looks better on the face
+        float scaleFactor = EMOJI_SCALE_FACTOR;
+
+        // Determine the size of the emoji to match the width of the face and preserve aspect ratio
+        int newEmojiWidth = (int) (face.getWidth() * scaleFactor);
+        int newEmojiHeight = (int) (emojiBitmap.getHeight() *
+                newEmojiWidth / emojiBitmap.getWidth() * scaleFactor);
+
+
+        // Scale the emoji
+        emojiBitmap = Bitmap.createScaledBitmap(emojiBitmap, newEmojiWidth, newEmojiHeight, false);
+
+        // Determine the emoji position so it best lines up with the face
+        float emojiPositionX =
+                (face.getPosition().x + face.getWidth() / 2) - emojiBitmap.getWidth() / 2;
+        float emojiPositionY =
+                (face.getPosition().y + face.getHeight() / 2) - emojiBitmap.getHeight() / 3;
+
+        // Create the canvas and draw the bitmaps to it
+        Canvas canvas = new Canvas(resultBitmap);
+        canvas.drawBitmap(backgroundBitmap, 0, 0, null);
+        canvas.drawBitmap(emojiBitmap, emojiPositionX, emojiPositionY, null);
+
+        return resultBitmap;
+    }
+
     // Enum for all possible Emojis
     private enum Emoji {
         SMILE,
