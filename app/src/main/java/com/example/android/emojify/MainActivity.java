@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,14 +78,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO (3): Replace the findViewById calls with the Butterknife data binding
+        // DONE (3): Replace the findViewById calls with the Butterknife data binding
         // Bind the views
-        mImageView = (ImageView) findViewById(R.id.image_view);
-        mEmojifyButton = (Button) findViewById(R.id.emojify_button);
-        mShareFab = (FloatingActionButton) findViewById(R.id.share_button);
-        mSaveFab = (FloatingActionButton) findViewById(R.id.save_button);
-        mClearFab = (FloatingActionButton) findViewById(R.id.clear_button);
-        mTitleTextView = (TextView) findViewById(R.id.title_text_view);
+        ButterKnife.bind(this);
     }
 
     /**
